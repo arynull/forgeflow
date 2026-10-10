@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# forgeflow runtime state
+runs.json
+feed.db
+*.db
+
+# tooling
+.ruff_cache/
+.pytest_cache/
