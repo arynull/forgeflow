@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
-import subprocess
+import subprocess  # nosec B404 - local CI executor needs subprocess by design
 import sys
 import time
 from pathlib import Path
@@ -128,7 +128,11 @@ def cmd_run(args: argparse.Namespace) -> int:
     results: list[dict[str, str]] = []
     exit_code = 0
     for step in steps:
-        completed = subprocess.run(step["run"], shell=True, check=False)
+        # Pipeline steps are user-authored shell commands (same trust model as
+        # GitHub Actions `run:`); preview with --dry before executing.
+        completed = subprocess.run(  # nosec B602 - intentional shell for pipeline steps
+            step["run"], shell=True, check=False
+        )
         if completed.returncode != 0:
             print(f"STEP-FAIL {step['name']}", file=sys.stderr)
             results.append({"name": step["name"], "status": "failed"})

@@ -63,6 +63,11 @@ python3 -m py_compile forge.py
 ./tests_smoke.sh
 ```
 
+
+## Trust model
+
+Only run pipelines you wrote or trust — steps execute as your user\'s shell commands. Preview with `forge run PIPELINE.yaml --dry` first.
+
 ## License
 
 MIT
